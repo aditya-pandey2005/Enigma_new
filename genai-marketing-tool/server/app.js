@@ -6,7 +6,7 @@ const app = express();
 
 const contentRoutes = require("./routes/contentRoutes");
 
-// ✅ CORS FIX - Accept all origins and add production domain
+// ✅ CORS configuration
 app.use(cors({
   origin: ["http://localhost:5174", "http://localhost:5173", "https://enigma-new-taupe.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -20,16 +20,22 @@ app.use(express.json());
 const clientDistPath = path.join(__dirname, "../client/dist");
 app.use(express.static(clientDistPath));
 
-// routes
+// ✅ Health check
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", message: "Backend is running ✅" });
+});
+
+// ✅ API routes
 app.use("/api/content", contentRoutes);
 
-// ✅ Fallback for SPA - serve index.html for all non-API routes
-app.get("*", (req, res) => {
-  if (!req.path.startsWith("/api")) {
-    res.sendFile(path.join(clientDistPath, "index.html"));
-  } else {
-    res.status(404).json({ error: "API endpoint not found" });
-  }
+// ✅ SPA fallback - serve index.html for all other routes
+app.use((req, res) => {
+  const indexPath = path.join(clientDistPath, "index.html");
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      res.status(404).json({ error: "Not found" });
+    }
+  });
 });
 
 module.exports = app;

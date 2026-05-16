@@ -1,6 +1,6 @@
 {
   "name": "genai-marketing-tool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "GenAI Marketing Tool - React Frontend, Node.js Backend, Python ML Service",
   "private": true,
   "main": "server/server.js",
@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^1.14.0",
     "cors": "^2.8.6",
+    "dotenv": "^16.4.5",
     "express": "^5.2.1"
   }
 }

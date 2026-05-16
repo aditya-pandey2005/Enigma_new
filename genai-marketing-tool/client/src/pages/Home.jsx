@@ -193,6 +193,7 @@ export default function Home() {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const platforms = ["Instagram", "Facebook", "LinkedIn", "Twitter"];
   const tones = ["Energetic", "Professional", "Casual", "Luxury"];
@@ -205,6 +206,7 @@ export default function Home() {
     try {
       setLoading(true);
       setData(null);
+      setError(null);
 
       const res = await axios.post(
         "/api/content/generate",
@@ -213,8 +215,9 @@ export default function Home() {
 
       setData(res.data);
     } catch (err) {
-      console.error(err);
-      alert("Error generating content");
+      console.error("API Error:", err);
+      const errorMsg = err.response?.data?.error || err.message || "Error generating content";
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -270,6 +273,14 @@ export default function Home() {
       {loading && (
         <div className="text-center mt-10 animate-pulse">
           ⚡ Generating AI magic...
+        </div>
+      )}
+
+      {/* ERROR */}
+      {error && (
+        <div className="mt-6 max-w-4xl mx-auto bg-red-900/50 border-2 border-red-500 p-4 rounded-xl text-red-100">
+          <p className="font-bold">❌ Error: {error}</p>
+          <p className="text-sm mt-2 text-red-200">Check your browser console (F12) for more details.</p>
         </div>
       )}
 
