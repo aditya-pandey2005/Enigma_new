@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "GenAI Marketing Tool - React Frontend, Node.js Backend, Python ML Service",
   "private": true,
+  "main": "server/server.js",
   "scripts": {
     "dev": "cd client && npm run dev",
-    "build": "cd client && npm run build",
+    "build": "cd client && npm install && npm run build",
+    "start": "node server/server.js",
     "preview": "cd client && npm run preview"
   },
   "dependencies": {

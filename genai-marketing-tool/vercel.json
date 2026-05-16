@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "buildCommand": "cd client && npm install && npm run build",
+  "framework": "express",
+  "functions": {
+    "server/server.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}

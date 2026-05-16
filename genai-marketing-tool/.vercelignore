@@ -1,0 +1,9 @@
+ml-service/
+*.py
+__pycache__/
+.env.local
+.env.*.local
+.git
+.gitignore
+README.md
+node_modules/

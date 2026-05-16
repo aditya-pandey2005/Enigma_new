@@ -207,7 +207,7 @@ export default function Home() {
       setData(null);
 
       const res = await axios.post(
-        "http://127.0.0.1:5000/api/content/generate",
+        "/api/content/generate",
         form
       );
 
@@ -227,7 +227,7 @@ export default function Home() {
 
   const downloadImage = () => {
     window.open(
-      `http://127.0.0.1:8000/download-image?url=${encodeURIComponent(
+      `/download-image?url=${encodeURIComponent(
         data.image.image_url
       )}`
     );
